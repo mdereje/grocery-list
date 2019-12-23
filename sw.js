@@ -1,7 +1,7 @@
-// Service worker
+// Service worker does everything
 // Not every browser supports service workers.
-const staticCacheName = 'site-static-v3'; //changing this refereshes cache
-const dynamicCacheName = 'site-dynamic-v1';
+const staticCacheName = 'site-static-v4'; //changing this refereshes cache
+const dynamicCacheName = 'site-dynamic-v3';
 const assets = [  // resources(requests) we want to cache
   '/',
   '/index.html',
@@ -59,23 +59,25 @@ const limitCacheSize = (name, size) => {  //recurssive function! for deleting ol
 //fetch events
 //service calls go through this (this will later be used for caching)
 self.addEventListener('fetch', evt => {
-  //intercept request
+  // intercept request
   // console.log('fetch event', evt);
-  evt.respondWith( //pause that fetch event and respond with your own aka check if its already cached
-    caches.match(evt.request) //async that returns a promise
-    .then(cacheRes => {    //if cache is empty return the initial fetch or fallback page if offline
-      return cacheRes || fetch(evt.request).then(fetchRes => {
-        return caches.open(dynamicCacheName).then(cache => {
-          cache.put(evt.request.url, fetchRes.clone());  //cant use fetchRes twice so we need to make a copy
-          limitCacheSize(dynamicCacheName, 15);
-          return fetchRes;
+  if(evt.request.url.indexOf('firestore.googleapis.com') === -1){  //only cache if firestore not in request url
+    evt.respondWith( //pause that fetch event and respond with your own aka check if its already cached
+      caches.match(evt.request) //async that returns a promise
+      .then(cacheRes => {    //if cache is empty return the initial fetch or fallback page if offline
+        return cacheRes || fetch(evt.request).then(fetchRes => {
+          return caches.open(dynamicCacheName).then(cache => {
+            cache.put(evt.request.url, fetchRes.clone());  //cant use fetchRes twice so we need to make a copy
+            limitCacheSize(dynamicCacheName, 15);
+            return fetchRes;
+          })
+        }).catch(() =>{
+          //can do this for multiple types of resources. aka fall back images.
+          if(evt.request.url.indexOf('.html') > -1){
+            return caches.match('/pages/fallback.html');
+          }
         })
-      }).catch(() =>{
-        //can do this for multiple types of resources. aka fall back images.
-        if(evt.request.url.indexOf('.html') > -1){
-          return caches.match('/pages/fallback.html');
-        }
       })
-    })
-  );
+    );
+  }
 });
