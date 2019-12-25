@@ -27,3 +27,9 @@ const renderRecipe = (data, id) => {
 
   recipes.innerHTML += html
 }
+
+//remove recipe from DOM
+const removeRecipe = (id) => {
+  const recipe = document.querySelector(`.recipe[data-id=${id}]`) // square brackets looks for specific attribute
+  recipe.remove();  //dom method that removes an element from the dom
+}

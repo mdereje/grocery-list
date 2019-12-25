@@ -1,7 +1,7 @@
 // Service worker does everything
 // Not every browser supports service workers.
 const staticCacheName = 'site-static-v4'; //changing this refereshes cache
-const dynamicCacheName = 'site-dynamic-v3';
+const dynamicCacheName = 'site-dynamic-v6';
 const assets = [  // resources(requests) we want to cache
   '/',
   '/index.html',
