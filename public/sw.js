@@ -4,7 +4,7 @@ const staticCacheName = 'site-static-v4'; //changing this refereshes cache
 const dynamicCacheName = 'site-dynamic-v6';
 const assets = [  // resources(requests) we want to cache
   '/',
-  '/index.html',
+  // '/index.html',
   '/pages/fallback.html',
   '/js/app.js',
   '/js/ui.js',

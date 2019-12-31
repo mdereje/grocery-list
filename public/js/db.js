@@ -11,7 +11,7 @@ db.enablePersistence()
   })
 
 // real-time listner
-db.collection('recipes').onSnapshot((snapshot) => {
+db.collection('items').onSnapshot((snapshot) => {
   // console.log(snapshot.docChanges());
   snapshot.docChanges().forEach(change => { //change.doc.data() holds the data for each change.
     if(change.type === 'added'){
@@ -31,12 +31,15 @@ const form = document.querySelector('form');
 form.addEventListener('submit', event => {
   event.preventDefault();
 
-  const recipe = {
-    title: form.title.value,
-    ingredients: form.ingredients.value
+  const item = {
+    item: form.item.value,
+    size: form.size.value,
+    unit: form.unit.value,
+    quantity: form.quantity.value
   };
 
-  db.collection('recipes').add(recipe)  //async so returns a promise
+  console.log('item', item)
+  db.collection('items').add(item)  //async so returns a promise
     .catch(err => console.log(err));
 
     form.reset();
@@ -44,11 +47,11 @@ form.addEventListener('submit', event => {
 
 
 //delete a recipe
-const recipeContainer = document.querySelector('.recipes')
+const recipeContainer = document.querySelector('.items')
 recipeContainer.addEventListener('click', evt => {
   //console.log(evt);
   if(evt.target.tagName === 'I'){
     const id = evt.target.getAttribute('data-id');
-    db.collection('recipes').doc(id).delete();
+    db.collection('items').doc(id).delete();
   }
 })

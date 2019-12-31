@@ -25,22 +25,25 @@
       <span class="right grey-text text-darken-1">
         <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
       </span>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/pages/expiry.html" class='orange-text text-darken-2'>Expiry</a></li>
+        <li><a href="/pages/data.html" class='orange-text text-darken-2'>Data</a></li>
+        <!-- side nav -->
+        <ul id="side-menu" class="sidenav side-menu">
+          <li><a class="subheader">GROCERYLIST</a></li>
+          <li><a href="/" class="waves-effect">Home</a></li>
+          <li><a href="/pages/about.html" class="waves-effect">About</a></li>
+          <li><div class="divider"></div></li>
+          <li><a href="/pages/contact.html" class="waves-effect">
+            <i class="material-icons">mail_outline</i>Contact</a>
+          </li>
+       </ul>
+      </ul>
     </div>
   </nav>
 
-  <!-- side nav -->
-  <ul id="side-menu" class="sidenav side-menu">
-    <li><a class="subheader">GROCERYLIST</a></li>
-    <li><a href="/" class="waves-effect">Home</a></li>
-    <li><a href="/pages/about.html" class="waves-effect">About</a></li>
-    <li><div class="divider"></div></li>
-    <li><a href="/pages/contact.html" class="waves-effect">
-      <i class="material-icons">mail_outline</i>Contact</a>
-    </li>
-  </ul>
-
-  <!-- recipes -->
-  <div class="recipes container grey-text text-darken-1">
+  <!-- shopping items -->
+  <div class="items container grey-text text-darken-1">
     <h6 class="center">Shopping list</h6>
   </div>
 
@@ -50,18 +53,34 @@
     </a>
   </div>
 
-  <!-- add recipe side nav -->
+  <!-- add items side nav -->
   <div id="side-form" class="sidenav side-form">
-    <form class="add-recipe container section">
-      <h6 >New Recipe</h6>
+    <form class="add-item container section">
+      <h6 >Grocery List</h6>
       <div class="divider"></div>
       <div class="input-field">
-        <input placeholder="e.g. Ninja soup" id="title" type="text" class="validate">
-        <label for="title">Recipe Title</label>
+        <input placeholder="e.g. Potatos" id="item" type="text" class="validate">
+        <label for="item">Item</label>
+      </div>
+      <div class="row">
+        <div class="input-field col m6">
+          <input placeholder="###" id="size" type="number" class="validate">
+          <label for="size">Size</label>
+        </div>
+         <div class="input-field col m6">
+          <select id="unit" class="unit">
+            <option value="" disabled selected>Unit</option>
+            <option value="oz">Ounces</option>
+            <option value="ml">Milliliters</option>
+            <option value="l">Liters</option>
+            <option value="g">Grams</option>
+          </select>
+          <label for="unit">Select Unit</label>
+         </div>
       </div>
       <div class="input-field">
-        <input placeholder="e.g. Tofu, mushroom, garlic" id="ingredients" type="text" class="validate">
-        <label for="ingredients">Ingredients</label>
+        <input placeholder="###" id="quantity" type="number" class="validate">
+        <label for="quantity">Quantity</label>
       </div>
       <div class="input-field center">
         <button class="btn-small">Add</button>
