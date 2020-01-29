@@ -5,17 +5,25 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+
+	if err := godotenv.Load(); err != nil {
+		log.Print("No .env file found")
+	}
 
 	url := "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=5&ranking=1&ignorePantry=false&ingredients=apples%252Cflour%252Csugar"
 
 	req, _ := http.NewRequest("GET", url, nil)
 
 	req.Header.Add("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
-	req.Header.Add("x-rapidapi-key", "t5Ag8seF8BmshqBOAWdA7gQI1JWEp1gGYKLjsnXnFRjqle1ZeZ")
+	req.Header.Add("x-rapidapi-key", os.Getenv("WHATS_IN_MY_FRIDGE_API_KEY"))
 
 	res, _ := http.DefaultClient.Do(req)
 
